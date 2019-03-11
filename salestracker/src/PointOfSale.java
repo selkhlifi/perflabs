@@ -1,8 +1,8 @@
-class PointOfService {
+class PointOfSale {
 
     private long id;
 
-    public PointOfService(final long id) {
+    public PointOfSale(final long id) {
         this.id = id;
     }
 
