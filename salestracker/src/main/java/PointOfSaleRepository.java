@@ -7,6 +7,7 @@ import java.util.stream.*;
 public class PointOfSaleRepository {
 
     private static final String SEPARATOR = ";";
+    public static final String SALES_FILES_PATH = "src/main/resources/sales.csv";
 
     public static List<PointOfSale> findAll() {
         final List<PointOfSale> result = new LinkedList<>();
@@ -24,7 +25,7 @@ public class PointOfSaleRepository {
     }
 
     public static Optional<SalesSummary> retrieveSalesSummary(final PointOfSale pos) {
-        final Path salesFilePath = Paths.get("sales.csv");
+        final Path salesFilePath = Paths.get(SALES_FILES_PATH);
         try (Stream<String> input = Files.lines(salesFilePath)) {
             return input.filter(line -> pos.getId() == Long.parseLong(line.split(SEPARATOR)[0])).map(line -> {
                 final String[] lineSplit = line.split(SEPARATOR);
