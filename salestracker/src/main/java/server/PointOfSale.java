@@ -1,4 +1,6 @@
-class PointOfSale {
+package server;
+
+public class PointOfSale {
 
     private long id;
     private String name;

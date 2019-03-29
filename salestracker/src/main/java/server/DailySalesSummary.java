@@ -1,11 +1,13 @@
+package server;
+
 import java.math.*;
 
-class SalesSummary {
+public class DailySalesSummary {
     private PointOfSale pos;
     private int nbrOfSales;
     private BigDecimal profit;
 
-    SalesSummary(final PointOfSale pos, final int nbrOfSales, final BigDecimal profit) {
+    DailySalesSummary(final PointOfSale pos, final int nbrOfSales, final BigDecimal profit) {
         this.pos = pos;
         this.nbrOfSales = nbrOfSales;
         this.profit = profit;
