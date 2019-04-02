@@ -1,8 +1,10 @@
 package server;
 
+import java.io.*;
 import java.math.*;
 import java.util.*;
 import java.util.concurrent.*;
+import java.util.stream.*;
 
 import static java.util.stream.Collectors.toList;
 
@@ -27,8 +29,16 @@ public class SalesTracker {
 
     public static BigDecimal overallProfits() {
         return SalesRepository.retrieveOverallSales().stream()
-                        .map(EmployeeSales::getProfit)
-                        .reduce(BigDecimal.ZERO, BigDecimal::add);
+                .map(EmployeeSales::getProfit)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
+    public static BigDecimal overallProfitsFixed() {
+        try (final Stream<EmployeeSales> employeeSalesStream = SalesRepository.retrieveOverallSalesFixed()){
+            return employeeSalesStream.map(EmployeeSales::getProfit)
+                    .reduce(BigDecimal.ZERO, BigDecimal::add);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

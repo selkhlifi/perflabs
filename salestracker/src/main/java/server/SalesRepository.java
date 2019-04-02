@@ -60,4 +60,30 @@ public class SalesRepository {
 
         return result;
     }
+
+    public static Stream<EmployeeSales> retrieveOverallSalesFixed() throws IOException {
+        final Path salesFilePath = Paths.get(SALES2_FILES_PATH);
+        Stream<String> input = Files.lines(salesFilePath);
+
+        return input.map(line -> {
+            final String[] lineSplit = line.split(";");
+            final PointOfSale pos = new PointOfSale(Long.parseLong(lineSplit[0].trim()));
+            final Employee emp = new Employee(lineSplit[1].trim());
+            final int nbrOfSales = Integer.parseInt(lineSplit[2].trim());
+            final BigDecimal profit = new BigDecimal(lineSplit[3].trim());
+            return new EmployeeSales(emp, pos, nbrOfSales, profit);
+        });
+    }
+
+    public static List<String> retrieveOverallSales2() {
+        final List<EmployeeSales> result = new ArrayList<>();
+        final Path salesFilePath = Paths.get(SALES2_FILES_PATH);
+        try (Stream<String> input = Files.lines(salesFilePath)) {
+            return input.collect(Collectors.toList());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 }

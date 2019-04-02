@@ -13,6 +13,10 @@ public class DailySalesSummary {
         this.profit = profit;
     }
 
+    public BigDecimal getProfit() {
+        return this.profit;
+    }
+
     @Override
     public String toString() {
         return "POS " + pos.getId() + " performed : " + nbrOfSales + " Sales, profit made " + profit;

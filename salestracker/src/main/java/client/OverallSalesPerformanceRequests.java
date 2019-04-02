@@ -1,9 +1,9 @@
 package client;
 
 import server.*;
+import util.*;
 
 import java.math.*;
-import java.time.*;
 
 public class OverallSalesPerformanceRequests {
 
@@ -12,11 +12,8 @@ public class OverallSalesPerformanceRequests {
         Thread.sleep(10000);
 
         for (int i = 0; i < 200; i ++) {
-            Instant start = Instant.now();
-            BigDecimal result = SalesTracker.overallProfits();
-            Duration interval = Duration.between(start, Instant.now());
-            System.out.println("Result : " + result);
-            System.out.println("Execution time in seconds: " + interval.getNano());
+            final BigDecimal result = LatencyMonitor.executeAndMonitor(SalesTracker::overallProfits);
+            System.out.println(">>> Overall benefits : " + result);
         }
 
         Thread.sleep(10000);

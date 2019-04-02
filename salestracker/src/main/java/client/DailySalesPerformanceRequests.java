@@ -1,7 +1,9 @@
 package client;
 
 import server.*;
+import util.*;
 
+import java.math.*;
 import java.util.concurrent.*;
 
 public class DailySalesPerformanceRequests {
@@ -21,9 +23,13 @@ public class DailySalesPerformanceRequests {
 
         @Override
         public void run() {
-            SalesTracker.dailySales().forEach(salesSummary -> {
-                System.out.println(salesSummary);
-            });
+
+            final BigDecimal result =
+                    LatencyMonitor.executeAndMonitor(() -> SalesTracker.dailySales()
+                            .stream()
+                            .map(DailySalesSummary::getProfit)
+                            .reduce(BigDecimal.ZERO, BigDecimal::add));
+            System.out.println(">>> Daily benefits : " + result);
         }
     }
 }
